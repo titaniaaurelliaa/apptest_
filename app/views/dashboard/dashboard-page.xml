@@ -1,0 +1,104 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Dashboard Keuangan">
+        <ActionItem tap="{{ onLogout }}" 
+            ios.position="right" 
+            android.position="actionBar">
+            <Label text="Logout" class="text-white" />
+        </ActionItem>
+    </ActionBar>
+
+    <TabView selectedIndex="{{ selectedTabIndex }}" class="bg-gray-100">
+        <!-- Summary Tab -->
+        <TabViewItem title="Ringkasan">
+            <GridLayout rows="auto, *, auto">
+                <StackLayout row="0" class="p-4">
+                    <Label text="Ringkasan Keuangan" class="text-xl font-bold mb-2" />
+                    <GridLayout columns="*, *" rows="auto, auto" class="bg-white p-4 rounded-lg">
+                        <Label text="Total Pendapatan" row="0" col="0" />
+                        <Label text="{{ totalIncome }}" row="0" col="1" class="text-right text-green-600" />
+                        <Label text="Total Pengeluaran" row="1" col="0" />
+                        <Label text="{{ totalExpense }}" row="1" col="1" class="text-right text-red-600" />
+                    </GridLayout>
+                </StackLayout>
+                
+                <ListView row="1" items="{{ recentTransactions }}" class="bg-white">
+                    <ListView.itemTemplate>
+                        <GridLayout columns="*, auto" class="p-4 border-b border-gray-200">
+                            <StackLayout col="0">
+                                <Label text="{{ description }}" class="font-semibold" />
+                                <Label text="{{ date }}" class="text-sm text-gray-600" />
+                            </StackLayout>
+                            <Label col="1" text="{{ amount }}" 
+                                class="{{ type === 'income' ? 'text-green-600' : 'text-red-600' }}" />
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+
+                <!-- RokoBot Quick Access -->
+                <Button row="2" text="Tanya RokoBot 🤖" tap="{{ onOpenRokoBot }}"
+                    class="m-4 bg-blue-600 text-white p-4 rounded-lg" />
+            </GridLayout>
+        </TabViewItem>
+
+        <!-- Rest of the TabViewItems remain the same -->
+        <TabViewItem title="Transaksi">
+            <GridLayout rows="auto, *">
+                <Button row="0" text="+ Transaksi Baru" tap="{{ onNewTransaction }}" 
+                    class="m-4 bg-blue-600 text-white p-4 rounded-lg" />
+                    
+                <ListView row="1" items="{{ transactions }}" class="bg-white">
+                    <ListView.itemTemplate>
+                        <GridLayout columns="*, auto" class="p-4 border-b border-gray-200">
+                            <StackLayout col="0">
+                                <Label text="{{ description }}" class="font-semibold" />
+                                <Label text="{{ category }}" class="text-sm text-gray-600" />
+                                <Label text="{{ date }}" class="text-xs text-gray-500" />
+                            </StackLayout>
+                            <Label col="1" text="{{ amount }}" 
+                                class="{{ type === 'income' ? 'text-green-600' : 'text-red-600' }}" />
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+            </GridLayout>
+        </TabViewItem>
+
+        <TabViewItem title="Laporan">
+            <ScrollView>
+                <StackLayout class="p-4">
+                    <Label text="Laporan Keuangan" class="text-xl font-bold mb-4" />
+                    
+                    <!-- Balance Sheet -->
+                    <Label text="Neraca" class="text-lg font-semibold mb-2" />
+                    <GridLayout columns="*, *" rows="auto, auto" class="bg-white p-4 rounded-lg mb-4">
+                        <Label text="Total Aset" row="0" col="0" />
+                        <Label text="{{ totalAssets }}" row="0" col="1" class="text-right" />
+                        <Label text="Total Kewajiban" row="1" col="0" />
+                        <Label text="{{ totalLiabilities }}" row="1" col="1" class="text-right" />
+                    </GridLayout>
+
+                    <!-- Income Statement -->
+                    <Label text="Laba Rugi" class="text-lg font-semibold mb-2" />
+                    <GridLayout columns="*, *" rows="auto, auto, auto" class="bg-white p-4 rounded-lg mb-4">
+                        <Label text="Pendapatan" row="0" col="0" />
+                        <Label text="{{ revenue }}" row="0" col="1" class="text-right" />
+                        <Label text="Beban" row="1" col="0" />
+                        <Label text="{{ expenses }}" row="1" col="1" class="text-right" />
+                        <Label text="Laba Bersih" row="2" col="0" class="font-bold" />
+                        <Label text="{{ netIncome }}" row="2" col="1" class="text-right font-bold" />
+                    </GridLayout>
+
+                    <!-- Cash Flow -->
+                    <Label text="Arus Kas" class="text-lg font-semibold mb-2" />
+                    <GridLayout columns="*, *" class="bg-white p-4 rounded-lg">
+                        <Label text="Kas Operasional" row="0" col="0" />
+                        <Label text="{{ operatingCashFlow }}" row="0" col="1" class="text-right" />
+                    </GridLayout>
+
+                    <!-- AI Insights -->
+                    <Button text="Lihat Analisis RokoBot" tap="{{ onViewAiInsights }}"
+                        class="mt-4 bg-blue-600 text-white p-4 rounded-lg" />
+                </StackLayout>
+            </ScrollView>
+        </TabViewItem>
+    </TabView>
+</Page>

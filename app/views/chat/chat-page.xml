@@ -1,0 +1,29 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="RokoBot Assistant">
+        <NavigationButton visibility="visible" />
+    </ActionBar>
+
+    <GridLayout rows="*, auto">
+        <ListView row="0" items="{{ messages }}" class="bg-gray-100">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *" class="p-4" class="{{ role === 'user' ? 'justify-end' : '' }}">
+                    <Image col="0" src="{{ role === 'assistant' ? '~/images/rokobot-avatar.png' : '~/images/user-avatar.png' }}"
+                        class="w-10 h-10 rounded-full" />
+                    <StackLayout col="1" class="{{ role === 'user' ? 'bg-blue-500 ml-4' : 'bg-white mr-4' }} p-3 rounded-lg">
+                        <Label text="{{ content }}" textWrap="true" 
+                            class="{{ role === 'user' ? 'text-white' : 'text-gray-800' }}" />
+                        <Label text="{{ timestamp | dateFormat }}" 
+                            class="{{ role === 'user' ? 'text-blue-100' : 'text-gray-500' }} text-xs" />
+                    </StackLayout>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <GridLayout row="1" columns="*, auto" class="p-4 bg-white border-t border-gray-200">
+            <TextField col="0" text="{{ messageText }}" hint="Tanyakan tentang keuangan..."
+                class="input p-3 bg-gray-100 rounded-lg" returnKeyType="send" />
+            <Button col="1" text="Kirim" tap="{{ sendMessage }}" isEnabled="{{ !isProcessing }}"
+                class="ml-2 bg-blue-600 text-white p-3 rounded-lg" />
+        </GridLayout>
+    </GridLayout>
+</Page>

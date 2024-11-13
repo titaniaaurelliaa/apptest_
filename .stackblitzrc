@@ -1,0 +1,4 @@
+{
+  "installDependencies": false,
+  "startCommand": "setup-nativescript-stackblitz && ns preview --no-hmr"
+}

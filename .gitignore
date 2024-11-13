@@ -1,0 +1,27 @@
+node_modules/
+.DS_Store
+*.log
+dist/
+tmp/
+platforms/
+hooks/
+.migration_backup/
+.update_backup/
+.cloud/
+.env
+.env.*
+!.env.example
+
+# NativeScript application
+hooks/
+platforms/
+
+# NativeScript
+app/**/*.js
+!app/webpack.config.js
+app/**/*.map
+app/tns_modules/
+app/platforms/
+app/package/
+app/app/
+app/*.d.ts
